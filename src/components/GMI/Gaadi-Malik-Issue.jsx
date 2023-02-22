@@ -72,27 +72,64 @@ export default function Gaadi_Malik_Issue() {
               </tr>
             </thead>
 
-            <tbody>
-              {issueData.map((element) => {
-                (element.issueNo != null &&
-                  element.issueType == "Gaadi Malik Issue" &&
-                  element.createdAt > 1675863674000 &&
-                  element.customFields != "New Tyre/टायर की समस्या" &&
-                  element.assignee.name != "Punit" &&
-                  element.customFields != "New Tyre" &&
-                  element.customFields != "Accident" &&
-                  element.customFields != "ACCIDENT" &&
-                  element.customFields != "NEW TYRE" &&
-                  element.customFields != "Workshop-(Eicher)" &&
-                  element.customFields.includes("load")) ||
-                (!element.customFields.includes("Emp") &&
-                  !Current_Status(element.customFields).includes(
-                    "ONWAY DOCUMENTATION PENDING"
-                  ))
-                  ? 
-                  : false;
-              })}
-            </tbody>
+        <tr>
+        {lis.filter(a => a['issueNo'] != null 
+      && a['issueType'] == 'Gaadi Malik Issue' 
+      && a['createdAt'] > 1675863674000 
+      && kbd(a['customFields']) != 'New Tyre/टायर की समस्या' 
+      && a['assignee']['name'] != 'Punit' 
+      && kbd(a['customFields']) != 'New Tyre' 
+      && kbd(a['customFields']) != 'Accident' 
+      && kbd(a['customFields']) != 'ACCIDENT' 
+      && kbd(a['customFields']) != 'NEW TYRE' 
+      && wp(a['customFields']) != 'Workshop-(Eicher)' 
+      && (kad(a['customFields']).includes('load') || !kad(a['customFields']).includes('Emp')) 
+      && !Current_Status(a['customFields']).includes('ONWAY DOCUMENTATION PENDING')
+    ).map(a => (
+        <tr>
+            <td style={{fontSize: '20px'}}>{vec1(a['customFields'])}</td>
+            {qwe.map(b => (
+                (vec(a['customFields']) === b['vehicleRegistrationNumber']) && (
+                    <React.Fragment>
+                        <td id="tsi">
+                            {b['customFields'] != null ? (
+                                <React.Fragment>
+                                    {lin(b['customFields'])}
+                                    <img style={{backgroundColor: 'black'}} src={vehicleimg(b['vehicleMake'])} width="40px" height="25px" />
+                                    |{makevehicle(b['customFields'])} |{AMCcover(b['customFields'])} |{local(b['customFields'])}
+                                    <span className={b[24] > 5 ? 'working-rotated-thing' : 'speed-o'}>{rs(b[24])}</span> |
+                                    <span className={b[24] > 5 ? 'speed' : 'speed-o'}>{b[24]}</span> |
+                                    <span className={b[23] > 1 ? 'halt-hrs' : 'halt-hrs1'}>{b[23]}</span> |
+                                    <span><img style={{backgroundColor: 'black'}} src={b[27]} width="55px" height="25px" /></span>
+                                </React.Fragment>
+                            ) : (
+                                <span style={{color: 'red'}}>Please Enter the Details</span>
+                            )}
+                        </td>
+                        <td id="tsi">
+                            {b['customFields'] != null ? (
+                                <React.Fragment>{gad(b['customFields'])}</React.Fragment>
+                            ) : (
+                                <span style={{color: 'red'}}>Please Enter the Details</span>
+                            )}
+                        </td>
+                    </React.Fragment>
+                )
+            ))}
+            <td>{kbd(a['customFields'])}</td>
+            <td>
+                <textarea className="desc" cols="40" rows="1" className={a['issueDescription'] == 'Case yet not Attended' ? 'casenoo' : null}>{a['issueDescription']}</textarea>
+            </td>
+            <td>
+                {a['updates']['forwardReasons'] === 'issue.reopened' ? (
+                    <span style={{backgroundColor: 'transparent', color: 'pink'}}>{GetFullName(a['updates']['time'])}</span>
+                ) : (
+                    <span style={{backgroundColor: 'transparent', color: 'red'}}>{GetFullName(a['createdAt'])}<br /></span>
+                )}
+            </td>
+          </tr>
+    ))}
+          </tr>
           </table>
         </div>
       </div>
