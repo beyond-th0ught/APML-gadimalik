@@ -53,7 +53,49 @@ export default function Gaadi_Malik_Issue() {
 
   return (
     <>
-      <p>gaadi maalik</p>
+      <div className="Section1">
+        <div>
+          <div>
+            <p className="caseno" type="text" disabled></p>
+            Gaadi malik Issue (Loaded)
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>V No.</th>
+                <th></th>
+                <th>GM</th>
+                <th>Problem</th>
+                <th>Description</th>
+                <th>Time Up </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {issueData.map((element) => {
+                (element.issueNo != null &&
+                  element.issueType == "Gaadi Malik Issue" &&
+                  element.createdAt > 1675863674000 &&
+                  element.customFields != "New Tyre/टायर की समस्या" &&
+                  element.assignee.name != "Punit" &&
+                  element.customFields != "New Tyre" &&
+                  element.customFields != "Accident" &&
+                  element.customFields != "ACCIDENT" &&
+                  element.customFields != "NEW TYRE" &&
+                  element.customFields != "Workshop-(Eicher)" &&
+                  element.customFields.includes("load")) ||
+                (!element.customFields.includes("Emp") &&
+                  !Current_Status(element.customFields).includes(
+                    "ONWAY DOCUMENTATION PENDING"
+                  ))
+                  ? 
+                  : false;
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </>
   );
 }
