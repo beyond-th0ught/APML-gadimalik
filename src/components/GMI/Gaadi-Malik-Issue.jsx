@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+// IMPORT FUNCTIONS
+import { wp, kad, kbd, currentStatus, vecNo } from "./gmiFunctions";
+
 export default function Gaadi_Malik_Issue() {
   let [issueData, setIssueData] = useState([]);
   let [vehicleData, setVehicleData] = useState([]);
@@ -60,7 +63,7 @@ export default function Gaadi_Malik_Issue() {
             Gaadi malik Issue (Loaded)
           </div>
 
-          <table>
+          <table border={1}>
             <thead>
               <tr>
                 <th>V No.</th>
@@ -72,64 +75,36 @@ export default function Gaadi_Malik_Issue() {
               </tr>
             </thead>
 
-        <tr>
-        {lis.filter(a => a['issueNo'] != null 
-      && a['issueType'] == 'Gaadi Malik Issue' 
-      && a['createdAt'] > 1675863674000 
-      && kbd(a['customFields']) != 'New Tyre/टायर की समस्या' 
-      && a['assignee']['name'] != 'Punit' 
-      && kbd(a['customFields']) != 'New Tyre' 
-      && kbd(a['customFields']) != 'Accident' 
-      && kbd(a['customFields']) != 'ACCIDENT' 
-      && kbd(a['customFields']) != 'NEW TYRE' 
-      && wp(a['customFields']) != 'Workshop-(Eicher)' 
-      && (kad(a['customFields']).includes('load') || !kad(a['customFields']).includes('Emp')) 
-      && !Current_Status(a['customFields']).includes('ONWAY DOCUMENTATION PENDING')
-    ).map(a => (
-        <tr>
-            <td style={{fontSize: '20px'}}>{vec1(a['customFields'])}</td>
-            {qwe.map(b => (
-                (vec(a['customFields']) === b['vehicleRegistrationNumber']) && (
-                    <React.Fragment>
-                        <td id="tsi">
-                            {b['customFields'] != null ? (
-                                <React.Fragment>
-                                    {lin(b['customFields'])}
-                                    <img style={{backgroundColor: 'black'}} src={vehicleimg(b['vehicleMake'])} width="40px" height="25px" />
-                                    |{makevehicle(b['customFields'])} |{AMCcover(b['customFields'])} |{local(b['customFields'])}
-                                    <span className={b[24] > 5 ? 'working-rotated-thing' : 'speed-o'}>{rs(b[24])}</span> |
-                                    <span className={b[24] > 5 ? 'speed' : 'speed-o'}>{b[24]}</span> |
-                                    <span className={b[23] > 1 ? 'halt-hrs' : 'halt-hrs1'}>{b[23]}</span> |
-                                    <span><img style={{backgroundColor: 'black'}} src={b[27]} width="55px" height="25px" /></span>
-                                </React.Fragment>
-                            ) : (
-                                <span style={{color: 'red'}}>Please Enter the Details</span>
-                            )}
-                        </td>
-                        <td id="tsi">
-                            {b['customFields'] != null ? (
-                                <React.Fragment>{gad(b['customFields'])}</React.Fragment>
-                            ) : (
-                                <span style={{color: 'red'}}>Please Enter the Details</span>
-                            )}
-                        </td>
-                    </React.Fragment>
-                )
-            ))}
-            <td>{kbd(a['customFields'])}</td>
-            <td>
-                <textarea className="desc" cols="40" rows="1" className={a['issueDescription'] == 'Case yet not Attended' ? 'casenoo' : null}>{a['issueDescription']}</textarea>
-            </td>
-            <td>
-                {a['updates']['forwardReasons'] === 'issue.reopened' ? (
-                    <span style={{backgroundColor: 'transparent', color: 'pink'}}>{GetFullName(a['updates']['time'])}</span>
-                ) : (
-                    <span style={{backgroundColor: 'transparent', color: 'red'}}>{GetFullName(a['createdAt'])}<br /></span>
-                )}
-            </td>
-          </tr>
-    ))}
-          </tr>
+            <tbody>
+              {issueData.map((e) => {
+                console.log(e);
+                if (
+                  e["issueNo"] != null &&
+                  e["issueType"] == "Gaadi Malik Issue" &&
+                  e["createdAt"] > 1675863674000 &&
+                  kbd(e["customFields"]) != "New Tyre/टायर की समस्या" &&
+                  e["assignee"]["name"] != "Punit" &&
+                  kbd(e["customFields"]) != "New Tyre" &&
+                  kbd(e["customFields"]) != "Accident" &&
+                  kbd(e["customFields"]) != "ACCIDENT" &&
+                  kbd(e["customFields"]) != "NEW TYRE" &&
+                  wp(e["customFields"]) != "Workshop-(Eicher)" &&
+                  (kad(e["customFields"]).includes("load") ||
+                    !kad(e["customFields"]).includes("Emp")) &&
+                  !currentStatus(e["customFields"]).includes(
+                    "ONWAY DOCUMENTATION PENDING"
+                  )
+                ) {
+                  return (
+                    <>
+                      <tr>
+                        <td>{vecNo(e["customFields"])}</td>
+                      </tr>
+                    </>
+                  );
+                }
+              })}
+            </tbody>
           </table>
         </div>
       </div>
