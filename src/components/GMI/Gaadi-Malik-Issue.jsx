@@ -21,13 +21,13 @@ export default function Gaadi_Malik_Issue() {
 
   // URLS
   const issueUrl = ``;
-  ('https://apis.fretron.com/shipment-view/issues/issues?size=3000&filters={"issueType":["Gaadi Malik Issue"],"status.keyword":["Open"]}');
+  ('https://apis.fretron.com/shipment-view/issues/issues?size=3000&filters={"status.keyword":["Open"]}');
 
   const vehicleUrl =
     "https://apis.fretron.com/partner-fleet/v2/allVehiclesList/";
 
   const logoUrl =
-    "https://script.google.com/macros/s/AKfycbyzz-dKS85zqH8Hzim81SIm-7wKvvafbAVdPikeL9oc9tumXzqZKWP2k73mYRkF1zmy/exec";
+    "https://script.google.com/macros/s/AKfycbyzz-dKS85zqH8Hzim81SIm-7wKvvafbAVdPikeL9oc9tumXzqZKWP2k73mYRkF1zmy/exec?action=getUser";
 
   // AUTH HEADER
   const headers = {
