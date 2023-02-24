@@ -15,7 +15,7 @@ export function wp(a) {
 
 export function kad(a) {
   for (let i = 0; i < a.length; i++) {
-    if (a[i]["fieldKey"] == "Vehicle Status Bot") {
+    if (a != null && a[i]["fieldKey"] == "Vehicle Status Bot") {
       //console.log("hellllp",_a[i]['fieldKey'])
       x = a[i]["indexedValue"][0].split("_")[1];
       break;
@@ -38,18 +38,19 @@ export function kbd(a) {
 export function vecNo(a) {
   let x;
   for (let i = 0; i < a.length; i++) {
-    if (a[i]["fieldkey"] == "Vehicle Number") {
-      console.log(a[i]["fieldkey"]);
-      x = a[i]["indexedValue"][0].split("_")[1];
+    if (a[i]["fieldKey"] == "Vehicle Number") {
+      x = a[i]["value"];
+      return x.replace(/[^0-9]/g, "").substring(2);
+    } else {
+      x = a[i]["value"];
     }
-    return x.replace(/[^0-9]/g, "").substring(2);
   }
   return x;
 }
 
 export function currentStatus(a) {
   for (let i = 0; i < a.length; i++) {
-    if (a[i]["fieldKey"] == "Current Status") {
+    if (a != null && a[i]["fieldKey"] == "Current Status") {
       //console.log("hellllp",_a[i]['fieldKey'])
       // this.x=_a[i]['indexedValue'][0].split("_")[1];
       z = a[i]["value"];
