@@ -7,6 +7,7 @@ import { wp, kad, kbd, currentStatus, vecNo } from "./gmiFunctions";
 export default function Gaadi_Malik_Issue() {
   let [issueData, setIssueData] = useState([]);
   let [vehicleData, setVehicleData] = useState([]);
+  const [open, setOpen] = useState(false);
 
   // URLS
   const issueUrl =
@@ -52,7 +53,7 @@ export default function Gaadi_Malik_Issue() {
         ),
       }));
     });
-  }, [issueData]);
+  }, []);
 
   return (
     <>
@@ -76,8 +77,7 @@ export default function Gaadi_Malik_Issue() {
             </thead>
 
             <tbody>
-              {issueData.map((e) => {
-                console.log(e);
+              {issueData.map((e, index) => {
                 if (
                   e["issueNo"] != null &&
                   e["issueType"] == "Gaadi Malik Issue" &&
@@ -90,10 +90,7 @@ export default function Gaadi_Malik_Issue() {
                   kbd(e["customFields"]) != "NEW TYRE" &&
                   wp(e["customFields"]) != "Workshop-(Eicher)" &&
                   (kad(e["customFields"]).includes("load") ||
-                    !kad(e["customFields"]).includes("Emp")) &&
-                  !currentStatus(e["customFields"]).includes(
-                    "ONWAY DOCUMENTATION PENDING"
-                  )
+                    !kad(e["customFields"]).includes("Emp"))
                 ) {
                   return (
                     <>
