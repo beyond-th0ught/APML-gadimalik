@@ -2,16 +2,26 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 // IMPORT FUNCTIONS
-import { wp, kad, kbd, currentStatus, vecNo } from "./gmiFunctions";
+import {
+  kad,
+  vec,
+  vecNo,
+  len,
+  vehicleImg,
+  makeVehicle,
+  AMCCover,
+  local,
+} from "./gmiFunctions";
 
 export default function Gaadi_Malik_Issue() {
   let [issueData, setIssueData] = useState([]);
   let [vehicleData, setVehicleData] = useState([]);
+  let data = [];
   const [open, setOpen] = useState(false);
 
   // URLS
-  const issueUrl =
-    'https://apis.fretron.com/shipment-view/issues/issues?size=3000&filters={"status.keyword":["Open"]}';
+  const issueUrl = ``;
+  ('https://apis.fretron.com/shipment-view/issues/issues?size=3000&filters={"issueType":["Gaadi Malik Issue"],"status.keyword":["Open"]}');
 
   const vehicleUrl =
     "https://apis.fretron.com/partner-fleet/v2/allVehiclesList/";
@@ -26,17 +36,15 @@ export default function Gaadi_Malik_Issue() {
 
   useEffect(() => {
     // GET ISSUE DATA
-    axios.get(issueUrl, { headers }).then((res) => {
-      setIssueData(res.data);
+    axios.get(issueUrl, { headers }).then(async (res) => {
+      await setIssueData(res.data);
     });
 
     // GET VEHICLE LIST
-    axios.get(vehicleUrl, { headers }).then((res) => {
-      setVehicleData(res.data.data);
+    axios.get(vehicleUrl, { headers }).then(async (res) => {
+      await setVehicleData(res.data.data);
     });
-  }, []);
 
-  useEffect(() => {
     axios.get(logoUrl).then((res) => {
       vehicleData = vehicleData.map((vehicle) => ({
         ...vehicleData.find(
@@ -53,6 +61,39 @@ export default function Gaadi_Malik_Issue() {
         ),
       }));
     });
+    setVehicleData(vehicleData);
+
+    for (let i = 0; i < issueData.length; i++) {
+      for (let j = 0; j < vehicleData.length; j++) {
+        if (
+          issueData[i]["issueNo"] != null &&
+          issueData[i]["createdAt"] > 1675863674000 &&
+          (kad(issueData[i]["customFields"]).includes("load") ||
+            !kad(issueData[i]["customFields"]).includes("Emp")) &&
+          vec(issueData[i]["customFields"]) ==
+            vehicleData[j]["vehicleRegistrationNumber"] &&
+          vehicleData[j]["customFields"] != null
+        ) {
+          let xyz = {
+            vecNo: vecNo(issueData[i]["customFields"]),
+            len: len(vehicleData[j]["customFields"]),
+            logo: vehicleImg(vehicleData[j]["vehicleMake"]),
+            details: {
+              year: makeVehicle(vehicleData[j]["customFields"]),
+              cover: AMCCover(vehicleData[j]["customFields"]),
+              type: local(vehicleData[j]["customFields"]),
+            },
+            run: "⚙️",
+            rDetails: {
+              speed: vehicleData[j][24],
+              halt: vehicleData[j][23],
+            },
+          };
+          console.log(vehicleData[j]);
+          console.log(xyz);
+        }
+      }
+    }
   }, []);
 
   return (
@@ -76,32 +117,7 @@ export default function Gaadi_Malik_Issue() {
               </tr>
             </thead>
 
-            <tbody>
-              {issueData.map((e, index) => {
-                if (
-                  e["issueNo"] != null &&
-                  e["issueType"] == "Gaadi Malik Issue" &&
-                  e["createdAt"] > 1675863674000 &&
-                  kbd(e["customFields"]) != "New Tyre/टायर की समस्या" &&
-                  e["assignee"]["name"] != "Punit" &&
-                  kbd(e["customFields"]) != "New Tyre" &&
-                  kbd(e["customFields"]) != "Accident" &&
-                  kbd(e["customFields"]) != "ACCIDENT" &&
-                  kbd(e["customFields"]) != "NEW TYRE" &&
-                  wp(e["customFields"]) != "Workshop-(Eicher)" &&
-                  (kad(e["customFields"]).includes("load") ||
-                    !kad(e["customFields"]).includes("Emp"))
-                ) {
-                  return (
-                    <>
-                      <tr>
-                        <td>{vecNo(e["customFields"])}</td>
-                      </tr>
-                    </>
-                  );
-                }
-              })}
-            </tbody>
+            <tbody></tbody>
           </table>
         </div>
       </div>
