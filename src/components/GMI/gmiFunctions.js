@@ -1,5 +1,158 @@
+import axios from "axios";
+
 let x;
 let z;
+let now;
+
+// URLS
+const issueUrl =
+  'https://apis.fretron.com/shipment-view/issues/issues?size=3000&filters={"issueType":["Gaadi Malik Issue"],"status.keyword":["Open"]}';
+
+const vehicleUrl = "https://apis.fretron.com/partner-fleet/v2/allVehiclesList/";
+
+const logoUrl =
+  "https://script.google.com/macros/s/AKfycbyzz-dKS85zqH8Hzim81SIm-7wKvvafbAVdPikeL9oc9tumXzqZKWP2k73mYRkF1zmy/exec";
+
+// AUTH HEADER
+const headers = {
+  Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NDkyNDgyODksInVzZXJJZCI6ImNlZWMxMzkwLWUyZjUtNDZkMC1iOTBlLWNiN2NkNDEwNzU3MiIsImVtYWlsIjoiaW50ZWdyYXRpb25AYXBtbC5jb20iLCJtb2JpbGVOdW1iZXIiOiI5MDAwMDAwMDA0Iiwib3JnSWQiOiI0MDUyYWIyNC0wNTQzLTRjZDQtYjUxNy05ZTc4ZWZlZTRmZWQiLCJuYW1lIjoiQVBNTCBJbnRlZ3JhdGlvbiIsIm9yZ1R5cGUiOiJGTEVFVF9PV05FUiIsImlzR29kIjpmYWxzZSwicG9ydGFsVHlwZSI6ImJhc2ljIn0.WV8p9lLMRft2DfrzikLpp_zSJIwrBEp0U2Oy4IWkp6w`,
+};
+
+export const fetchLoadData = async () => {
+  try {
+    let issueData;
+    let vehicleData;
+    let sheetData;
+
+    let content = [];
+
+    const issueRes = await axios.get(issueUrl, { headers });
+    issueData = issueRes.data;
+
+    const vehRes = await axios.get(vehicleUrl, { headers });
+    vehicleData = vehRes.data.data;
+
+    const sheetRes = await axios.get(logoUrl);
+    sheetData = sheetRes.data.data;
+
+    vehicleData = vehicleData.map((vehicle) => ({
+      ...sheetData.find(
+        (element) => vehicle.vehicleRegistrationNumber === element[0]
+      ),
+      ...vehicle,
+    }));
+
+    for (let i = 0; i < issueData.length; i++) {
+      for (let j = 0; j < vehicleData.length; j++) {
+        if (
+          issueData[i]["issueNo"] != null &&
+          issueData[i]["createdAt"] > 1675863674000 &&
+          (kad(issueData[i]["customFields"]).includes("load") ||
+            !kad(issueData[i]["customFields"]).includes("Emp")) &&
+          vec(issueData[i]["customFields"]) ==
+            vehicleData[j]["vehicleRegistrationNumber"] &&
+          vehicleData[j]["customFields"] != null
+        ) {
+          let elementData = {
+            vecNo: vecNo(issueData[i]["customFields"]),
+            len: len(vehicleData[j]["customFields"]),
+            compLogo: vehicleImg(vehicleData[j]["vehicleMake"]),
+            details: {
+              year: makeVehicle(vehicleData[j]["customFields"]),
+              cover: AMCCover(vehicleData[j]["customFields"]),
+              type: local(vehicleData[j]["customFields"]),
+            },
+            run: "⚙️",
+            rDetails: {
+              speed: vehicleData[j][24],
+              halt: vehicleData[j][23],
+            },
+            shipLogo: vehicleData[j][27],
+            gm: gad(vehicleData[j]["customFields"]),
+            prob: kbd(issueData[i]["customFields"]),
+            desc: issueData[i]["issueDescription"],
+            time: issueData[i]["createdAt"],
+            temp: kad(issueData[i]["customFields"]),
+          };
+          content.push(elementData);
+        }
+      }
+    }
+
+    // console.log(content.length);
+    return content;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const fetchEmptyData = async () => {
+  try {
+    let issueData;
+    let vehicleData;
+    let sheetData;
+
+    let content = [];
+
+    const issueRes = await axios.get(issueUrl, { headers });
+    issueData = issueRes.data;
+
+    const vehRes = await axios.get(vehicleUrl, { headers });
+    vehicleData = vehRes.data.data;
+
+    const sheetRes = await axios.get(logoUrl);
+    sheetData = sheetRes.data.data;
+
+    vehicleData = vehicleData.map((vehicle) => ({
+      ...sheetData.find(
+        (element) => vehicle.vehicleRegistrationNumber === element[0]
+      ),
+      ...vehicle,
+    }));
+
+    for (let i = 0; i < issueData.length; i++) {
+      for (let j = 0; j < vehicleData.length; j++) {
+        if (
+          issueData[i]["issueNo"] != null &&
+          issueData[i]["createdAt"] > 1675863674000 &&
+          kad(issueData[i]["customFields"]).includes("Empty_gaadimalik") &&
+          kad(issueData[i]["customFields"]) != "Loaded_gaadimalik" &&
+          vec(issueData[i]["customFields"]) ==
+            vehicleData[j]["vehicleRegistrationNumber"] &&
+          vehicleData[j]["customFields"] != null
+        ) {
+          let elementData = {
+            vecNo: vecNo(issueData[i]["customFields"]),
+            len: len(vehicleData[j]["customFields"]),
+            compLogo: vehicleImg(vehicleData[j]["vehicleMake"]),
+            details: {
+              year: makeVehicle(vehicleData[j]["customFields"]),
+              cover: AMCCover(vehicleData[j]["customFields"]),
+              type: local(vehicleData[j]["customFields"]),
+            },
+            run: "⚙️",
+            rDetails: {
+              speed: vehicleData[j][24],
+              halt: vehicleData[j][23],
+            },
+            shipLogo: vehicleData[j][27],
+            gm: gad(vehicleData[j]["customFields"]),
+            prob: kbd(issueData[i]["customFields"]),
+            desc: issueData[i]["issueDescription"],
+            time: issueData[i]["createdAt"],
+            temp: kad(issueData[i]["customFields"]),
+          };
+          content.push(elementData);
+        }
+      }
+    }
+
+    // console.log(content.length);
+    return content;
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 export function wp(a) {
   //   console.log(a[]);
@@ -15,7 +168,7 @@ export function wp(a) {
 
 export function kad(a) {
   for (let i = 0; i < a.length; i++) {
-    if (a != null && a[i]["fieldKey"] == "Vehicle Status Bot") {
+    if (a[i]["fieldKey"] == "Vehicle Status Bot") {
       //console.log("hellllp",_a[i]['fieldKey'])
       x = a[i]["value"];
       break;
@@ -40,7 +193,8 @@ export function vecNo(a) {
   for (let i = 0; i < a.length; i++) {
     if (a[i]["fieldKey"] == "Vehicle Number") {
       x = a[i]["value"];
-      return x.replace(/[^0-9]/g, "").substring(2);
+      // return x.replace(/[^0-9]/g, "").substring(2);
+      return x;
     } else {
       x = a[i]["value"];
     }
@@ -175,4 +329,41 @@ export function local(a) {
     xz = xz.split("_")[0];
   }
   return xz;
+}
+
+export function gad(a) {
+  for (let i = 0; i < a.length; i++) {
+    if (a[i]["fieldKey"] == "FleetZoneResponsiblePerson") {
+      x = a[i]["indexedValue"][0].split("_")[1];
+      var op = "";
+      for (let j = 0; j < a[i]["value"].split(" ").length; j++) {
+        op = op + a[i]["value"].split(" ")[j].substring(0, 1);
+      }
+
+      x = op;
+      break;
+    }
+  }
+  return x;
+}
+
+export function getTime(a) {
+  var countFrom = new Date(a).getTime();
+  let now = new Date();
+  let b = new Date(countFrom);
+  let distance = now - b;
+
+  var secondsInADay = 60 * 60 * 1000 * 24;
+  var secondsInAHour = 60 * 60 * 1000;
+
+  let days = Math.floor((distance / secondsInADay) * 1);
+  let hours = Math.floor(((distance % secondsInADay) / secondsInAHour) * 1);
+  let mins = Math.floor(
+    (((distance % secondsInADay) % secondsInAHour) / (60 * 1000)) * 1
+  );
+  let secs = Math.floor(
+    ((((distance % secondsInADay) % secondsInAHour) % (60 * 1000)) / 1000) * 1
+  );
+  let xyz = days + "d " + hours + "h " + mins + "m " + secs + "s ";
+  return xyz;
 }
