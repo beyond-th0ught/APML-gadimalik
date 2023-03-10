@@ -1,4 +1,5 @@
 import axios from "axios";
+// import "./ntiStyles.css";
 
 let x;
 let z;

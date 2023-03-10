@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import "./ntiStyles.scss";
+
 
 // IMPORT FUNCTIONS
 import { fetchData } from "./ntiFunction";
@@ -22,7 +24,7 @@ export default function New_Tyre_Issue() {
           {/* <p>{lC}</p> */}
           <div>
             <p className="caseno" type="text" disabled></p>
-            Gaadi malik Issue (Loaded)
+            New Tyre issue(Loaded)
           </div>
 
           <table border={1}>
@@ -53,8 +55,10 @@ export default function New_Tyre_Issue() {
                         />
                         |{e.details.year}|{e.details.cover}|{e.details.type}|
                       </span>
-                      <span>{e.run}</span> | <span>{e.rDetails.speed}</span> |{" "}
-                      <span>{e.rDetails.halt}</span> |{" "}
+                      <span className={e.rDetails.speed > 5 ?'working-rotated-thing' : 'speed-o'}>{e.run}</span>
+                       |<span className={e.rDetails.speed > 5 ? 'speed' : 'speed-o'}>{e.rDetails.speed}</span> |
+                       {" "}
+                      <span className={e.rDetails.halt < 1 ? 'halt-hrs1' : 'halt-hrs'}>{e.rDetails.halt}</span> |{" "}
                       <span>
                         <img
                           // style="background-color: black"
