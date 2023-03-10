@@ -367,3 +367,31 @@ export function getTime(a) {
   let xyz = days + "d " + hours + "h " + mins + "m " + secs + "s ";
   return xyz;
 }
+
+export function workP(a) {
+  for (let i = 0; i < _a.length; i++) {
+    if (a[i]["fieldKey"] == "Work Place") {
+      //console.log("hellllp",_a[i]['fieldKey'])
+      // this.x=_a[i]['indexedValue'][0].split("_")[1];
+      z = a[i]["value"];
+      break;
+    }
+  }
+
+  return z;
+}
+
+export function Workplacesplit(a) {
+  z = a;
+  var data;
+  if (z == "Local") {
+    data = z;
+  } else if (z == "Apml Workshop- KWS" || z == "Apml Workshop- CWK") {
+    data = z.split("Workshop-")[1];
+  } else if (z == "Workshop-(Tata)" || z == "Workshop-(Eicher)") {
+    data = z.split("(")[1].split(")")[0];
+  } else if (z == "Workshop-(Ashok Leyland)") {
+    data = z.split("(")[1].split(")")[0].split(" ")[1];
+  }
+  return data;
+}
