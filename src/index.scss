@@ -1,0 +1,304 @@
+* {
+  background-color: black;
+  color: white;
+}
+.temp {
+  background-color: blue;
+}
+
+table {
+  background-color: black;
+  color: white;
+  font-size: 14px;
+  margin-right: 100px;
+  margin-bottom: 100px;
+  // min-width: 1200px;
+  overflow: scroll;
+  .sortable,
+  .sortable1,
+  .sortable2,
+  .sortable3,
+  .sortable4,
+  .sortable5,
+  .sortable6,
+  .sortable7,
+  .sortable8,
+  .sortable9,
+  .sortable9 {
+    max-height: 700px;
+  }
+}
+
+.workplacee {
+  animation: myanimation1 3s infinite;
+}
+.casenoo {
+  animation: myanimation1 1s infinite;
+}
+.status {
+  animation: myanimation2 3s infinite;
+}
+.upper,
+.lower {
+  display: flex;
+  justify-content: space-between;
+}
+.btn {
+  background: black;
+  background-image: -webkit-linear-gradient(top, #464747, #a5aba8);
+  background-image: -moz-linear-gradient(top, #464747, #a5aba8);
+  background-image: -ms-linear-gradient(top, #464747, #a5aba8);
+  background-image: -o-linear-gradient(top, #464747, #a5aba8);
+  background-image: linear-gradient(to bottom, #464747, #a5aba8);
+  -webkit-border-radius: 18;
+  -moz-border-radius: 18;
+
+  font-family: Arial;
+  color: #000000;
+  font-size: 15px;
+  border: 3px solid black;
+
+  padding: 5px 10px 5px 10px;
+  text-decoration: uppercase;
+}
+
+.btn:hover {
+  background: #a5aba8;
+  border: 3px solid white;
+  background-image: -webkit-linear-gradient(top, #a5aba8, #464747);
+  background-image: -moz-linear-gradient(top, #a5aba8, #464747);
+  background-image: -ms-linear-gradient(top, #a5aba8, #464747);
+  background-image: -o-linear-gradient(top, #a5aba8, #464747);
+  background-image: linear-gradient(to bottom, #a5aba8, #464747);
+  text-decoration: none;
+}
+
+.tt {
+  display: flex;
+  float: right;
+  margin-top: 20px;
+}
+hr {
+  background-color: black;
+  height: 2px;
+}
+.lower_screen,
+.Maintenance {
+  display: flex;
+  justify-content: space-between;
+}
+
+td {
+  white-space: nowrap;
+  text-align: left;
+  :nth-child(2) {
+    max-width: 20px;
+    overflow: scroll;
+  }
+}
+.Section {
+  display: flex;
+  flex-direction: column;
+}
+th {
+  white-space: nowrap;
+  position: sticky;
+  top: 25px;
+  z-index: 1; // any positive value, layer order is global
+  background: rgb(0, 0, 0); // any bg-color to overlap
+  background-color: black;
+  color: white;
+
+  border-bottom: 2px solid red;
+}
+.header {
+  font-size: 20px;
+  max-width: 65vw;
+  color: white;
+  position: sticky;
+  top: 0px;
+  // height: 80px;
+  z-index: 1; // any positive value, layer order is global
+  background: rgb(0, 0, 0); // any bg-color to overlap
+}
+.newStyle {
+  color: rgb(249, 71, 7);
+  color: black;
+  animation: myanimation1 1s infinite;
+  border-radius: 5px;
+}
+
+@keyframes myanimation1 {
+  0% {
+    background-color: rgb(249, 71, 7);
+    color: black;
+  }
+
+  25% {
+    background-color: transparent;
+    color: white;
+  }
+
+  50% {
+    background-color: rgb(249, 71, 7);
+    color: black;
+  }
+
+  75% {
+    background-color: transparent;
+    color: white;
+  }
+
+  100% {
+    background-color: rgb(249, 71, 7);
+    color: black;
+  }
+}
+
+.desc {
+  background-color: transparent;
+  color: yellow;
+  font-size: 12px;
+  border: none;
+}
+
+@keyframes myanimation {
+  0% {
+    background-color: White;
+    color: black;
+  }
+
+  25% {
+    background-color: rgb(255, 0, 0);
+    color: black;
+  }
+
+  50% {
+    background-color: White;
+    color: black;
+  }
+
+  75% {
+    background-color: red;
+    color: black;
+  }
+
+  100% {
+    background-color: White;
+    color: black;
+  }
+}
+
+.abc {
+  display: flex;
+  justify-content: flex-start;
+  bottom: 0;
+  flex-direction: row;
+  align-items: baseline;
+}
+.newStyle1 {
+  color: yellow;
+  color: black;
+  animation: myanimation2 3s infinite;
+  border-radius: 5px;
+}
+
+@keyframes myanimation2 {
+  0% {
+    background-color: yellow;
+    color: black;
+  }
+
+  25% {
+    background-color: transparent;
+    color: white;
+  }
+
+  50% {
+    background-color: yellow;
+    color: black;
+  }
+
+  75% {
+    background-color: transparent;
+    color: white;
+  }
+
+  100% {
+    background-color: yellow;
+    color: black;
+  }
+}
+.myStyle {
+  color: rgb(14, 203, 129);
+  color: black;
+  animation: myanimation3 5s infinite;
+  border-radius: 5px;
+}
+
+.speed,
+.halt-hrs1 {
+  background-color: rgb(0, 255, 0);
+  color: black;
+}
+.speed-o,
+.halt-hrs {
+  background-color: red;
+}
+.working-rotated-thing {
+  background-color: rgb(0, 255, 0);
+  font-size: 23px;
+  -webkit-animation: spin 0.5s linear infinite;
+  -moz-animation: spin 0.5s linear infinite;
+  animation: spin 0.5s linear infinite;
+}
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+// .Buttonssss button:last-child {
+//   border-right: 5px solid red;
+// }
+
+@keyframes myanimation3 {
+  0% {
+    background-color: green;
+    color: black;
+  }
+
+  25% {
+    background-color: transparent;
+    color: white;
+  }
+
+  50% {
+    background-color: green;
+    color: black;
+  }
+
+  75% {
+    background-color: transparent;
+    color: white;
+  }
+
+  100% {
+    background-color: green;
+    color: black;
+  }
+}
+
+.SubSection {
+  display: flex;
+}
