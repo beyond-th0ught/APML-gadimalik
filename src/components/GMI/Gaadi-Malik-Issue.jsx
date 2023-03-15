@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
 
 // IMPORT FUNCTIONS
-import { fetchLoadData, fetchEmptyData } from "./gmiFunctions";
+import { fetchData } from "./gmiFunctions";
 
 export default function Gaadi_Malik_Issue() {
   const [loadedContent, setLoadedContent] = useState([]);
   const [emptyContent, setEmptyContent] = useState([]);
 
-  const [lC, setLC] = useState(null);
-  const [eC, setEC] = useState(null);
+  const [type, setType] = useState("all");
 
   useEffect(() => {
     (async () => {
-      setLoadedContent(await fetchLoadData());
-      setLC(loadedContent.length);
-      setEmptyContent(await fetchEmptyData());
-      setEC(emptyContent.length);
+      const data = await fetchData();
+
+      setLoadedContent(data[0]);
+      setEmptyContent(data[1]);
     })();
   }, []);
 
@@ -23,7 +22,13 @@ export default function Gaadi_Malik_Issue() {
     <>
       <div className="Section1">
         <div>
-          <p>{lC}</p>
+          <button onClick={() => setType("all")}>ALL</button>
+          <button onClick={() => setType("🚚")}>LINE_SXL</button>
+          <button onClick={() => setType("🚛")}>LINE_MXL</button>
+          <button onClick={() => setType("🚍")}>LINE_TRAILER</button>
+        </div>
+        <div>
+          {/* <p>{lC}</p> */}
           <div>
             <p className="caseno" type="text" disabled></p>
             Gaadi malik Issue (Loaded)
@@ -42,45 +47,75 @@ export default function Gaadi_Malik_Issue() {
             </thead>
             <tbody>
               {loadedContent.map((e) => {
-                return (
-                  <tr>
-                    <td>{e.vecNo || "NA"}</td>
-                    <td>
-                      <span>
-                        {e.len}
-                        <img
-                          // style="background-color: black"
-                          src={e.compLogo}
-                          width="40px"
-                          height="25px"
-                        />
-                        |{e.details.year}|{e.details.cover}|{e.details.type}|
-                      </span>
-                      <span>{e.run}</span> | <span>{e.rDetails.speed}</span> |{" "}
-                      <span>{e.rDetails.halt}</span> |{" "}
-                      <span>
-                        <img
-                          // style="background-color: black"
-                          src={e.shipLogo}
-                          width="55px"
-                          height="25px"
-                        />
-                      </span>
-                    </td>
-                    <td>{e.gm}</td>
-                    <td>{e.prob}</td>
-                    <td>{e.desc}</td>
-                    <td value="hello"></td>
-                    <td>{e.temp}</td>
-                  </tr>
-                );
+                if (e.len === type || type === "all") {
+                  return (
+                    <tr>
+                      <td>{e.vecNo || "NA"}</td>
+                      <td>
+                        <span>
+                          {e.len}
+                          <img
+                            // style="background-color: black"
+                            src={e.compLogo}
+                            width="40px"
+                            height="25px"
+                          />
+                          |{e.details.year}|{e.details.cover}|{e.details.type}|
+                        </span>
+                        <span
+                          className={
+                            e.rDetails.speed > 5
+                              ? "working-rotated-thing"
+                              : "speed-o"
+                          }
+                        >
+                          {e.run}
+                        </span>
+                        |
+                        <span
+                          className={
+                            e.rDetails.speed > 5
+                              ? "working-rotated-thing"
+                              : "speed-o"
+                          }
+                        >
+                          {e.rDetails.speed}
+                        </span>
+                        |
+                        <span
+                          className={
+                            e.rDetails.halt <= 1
+                              ? "working-rotated-thing"
+                              : "speed-o"
+                          }
+                        >
+                          {e.rDetails.halt}
+                        </span>
+                        |
+                        <span>
+                          <img
+                            // style="background-color: black"
+                            src={e.shipLogo}
+                            width="55px"
+                            height="25px"
+                          />
+                        </span>
+                      </td>
+                      <td>{e.gm}</td>
+                      <td>{e.prob}</td>
+                      <td>{e.desc}</td>
+                      <td value="hello"></td>
+                      <td>{e.temp}</td>
+                    </tr>
+                  );
+                }
               })}
             </tbody>
           </table>
         </div>
 
         <div>
-          <p>{eC}</p>
+          {/* <p>{eC}</p> */}
           <div>
             <p className="caseno" type="text" disabled></p>
             Gaadi malik Issue (Empty)
@@ -99,38 +134,68 @@ export default function Gaadi_Malik_Issue() {
             </thead>
             <tbody>
               {emptyContent.map((e) => {
-                return (
-                  <tr>
-                    <td>{e.vecNo || "NA"}</td>
-                    <td>
-                      <span>
-                        {e.len}
-                        <img
-                          // style="background-color: black"
-                          src={e.compLogo}
-                          width="40px"
-                          height="25px"
-                        />
-                        |{e.details.year}|{e.details.cover}|{e.details.type}|
-                      </span>
-                      <span>{e.run}</span> | <span>{e.rDetails.speed}</span> |{" "}
-                      <span>{e.rDetails.halt}</span> |{" "}
-                      <span>
-                        <img
-                          // style="background-color: black"
-                          src={e.shipLogo}
-                          width="55px"
-                          height="25px"
-                        />
-                      </span>
-                    </td>
-                    <td>{e.gm}</td>
-                    <td>{e.prob}</td>
-                    <td>{e.desc}</td>
-                    <td>{e.time}</td>
-                    <td>{e.temp}</td>
-                  </tr>
-                );
+                if (e.len === type || type === "all") {
+                  return (
+                    <tr>
+                      <td>{e.vecNo || "NA"}</td>
+                      <td>
+                        <span>
+                          {e.len}
+                          <img
+                            // style="background-color: black"
+                            src={e.compLogo}
+                            width="40px"
+                            height="25px"
+                          />
+                          |{e.details.year}|{e.details.cover}|{e.details.type}|
+                        </span>
+                        <span
+                          className={
+                            e.rDetails.speed > 5
+                              ? "working-rotated-thing"
+                              : "speed-o"
+                          }
+                        >
+                          {e.run}
+                        </span>{" "}
+                        |{" "}
+                        <span
+                          className={
+                            e.rDetails.speed > 5
+                              ? "working-rotated-thing"
+                              : "speed-o"
+                          }
+                        >
+                          {e.rDetails.speed}
+                        </span>{" "}
+                        |{" "}
+                        <span
+                          className={
+                            e.rDetails.speed <= 1
+                              ? "working-rotated-thing"
+                              : "speed-o"
+                          }
+                        >
+                          {e.rDetails.halt}
+                        </span>{" "}
+                        |{" "}
+                        <span>
+                          <img
+                            // style="background-color: black"
+                            src={e.shipLogo}
+                            width="55px"
+                            height="25px"
+                          />
+                        </span>
+                      </td>
+                      <td>{e.gm}</td>
+                      <td>{e.prob}</td>
+                      <td>{e.desc}</td>
+                      <td>{e.time}</td>
+                      <td>{e.temp}</td>
+                    </tr>
+                  );
+                }
               })}
             </tbody>
           </table>
