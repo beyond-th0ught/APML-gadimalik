@@ -2,7 +2,6 @@ import axios from "axios";
 
 let x;
 let z;
-let now;
 
 // URLS
 const issueUrl =
@@ -18,13 +17,15 @@ const headers = {
   Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NDkyNDgyODksInVzZXJJZCI6ImNlZWMxMzkwLWUyZjUtNDZkMC1iOTBlLWNiN2NkNDEwNzU3MiIsImVtYWlsIjoiaW50ZWdyYXRpb25AYXBtbC5jb20iLCJtb2JpbGVOdW1iZXIiOiI5MDAwMDAwMDA0Iiwib3JnSWQiOiI0MDUyYWIyNC0wNTQzLTRjZDQtYjUxNy05ZTc4ZWZlZTRmZWQiLCJuYW1lIjoiQVBNTCBJbnRlZ3JhdGlvbiIsIm9yZ1R5cGUiOiJGTEVFVF9PV05FUiIsImlzR29kIjpmYWxzZSwicG9ydGFsVHlwZSI6ImJhc2ljIn0.WV8p9lLMRft2DfrzikLpp_zSJIwrBEp0U2Oy4IWkp6w`,
 };
 
-export const fetchLoadData = async () => {
+export const fetchData = async () => {
   try {
     let issueData;
     let vehicleData;
     let sheetData;
 
     let content = [];
+    let loaded = [];
+    let empty = [];
 
     const issueRes = await axios.get(issueUrl, { headers });
     issueData = issueRes.data;
@@ -34,6 +35,15 @@ export const fetchLoadData = async () => {
 
     const sheetRes = await axios.get(logoUrl);
     sheetData = sheetRes.data.data;
+
+    vehicleData = vehicleData.map((vehicle) => ({
+      ...vehicleData.find(
+        (element) =>
+          vehicle.vehicleRegistrationNumber ===
+          element.vehicleRegistrationNumber
+      ),
+      ...vehicle,
+    }));
 
     vehicleData = vehicleData.map((vehicle) => ({
       ...sheetData.find(
@@ -47,13 +57,13 @@ export const fetchLoadData = async () => {
         if (
           issueData[i]["issueNo"] != null &&
           issueData[i]["createdAt"] > 1675863674000 &&
-          (kad(issueData[i]["customFields"]).includes("load") ||
-            !kad(issueData[i]["customFields"]).includes("Emp")) &&
+          kad(issueData[i]["customFields"]).includes("oad") &&
+          kad(issueData[i]["customFields"]) != "Emp" &&
           vec(issueData[i]["customFields"]) ==
             vehicleData[j]["vehicleRegistrationNumber"] &&
           vehicleData[j]["customFields"] != null
         ) {
-          let elementData = {
+          let loadData = {
             vecNo: vecNo(issueData[i]["customFields"]),
             len: len(vehicleData[j]["customFields"]),
             compLogo: vehicleImg(vehicleData[j]["vehicleMake"]),
@@ -74,54 +84,18 @@ export const fetchLoadData = async () => {
             time: issueData[i]["createdAt"],
             temp: kad(issueData[i]["customFields"]),
           };
-          content.push(elementData);
-        }
-      }
-    }
 
-    // console.log(content.length);
-    return content;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const fetchEmptyData = async () => {
-  try {
-    let issueData;
-    let vehicleData;
-    let sheetData;
-
-    let content = [];
-
-    const issueRes = await axios.get(issueUrl, { headers });
-    issueData = issueRes.data;
-
-    const vehRes = await axios.get(vehicleUrl, { headers });
-    vehicleData = vehRes.data.data;
-
-    const sheetRes = await axios.get(logoUrl);
-    sheetData = sheetRes.data.data;
-
-    vehicleData = vehicleData.map((vehicle) => ({
-      ...sheetData.find(
-        (element) => vehicle.vehicleRegistrationNumber === element[0]
-      ),
-      ...vehicle,
-    }));
-
-    for (let i = 0; i < issueData.length; i++) {
-      for (let j = 0; j < vehicleData.length; j++) {
-        if (
+          loaded.push(loadData);
+        } else if (
           issueData[i]["issueNo"] != null &&
           issueData[i]["createdAt"] > 1675863674000 &&
-          kad(issueData[i]["customFields"]).includes("Empty_gaadimalik") &&
-          kad(issueData[i]["customFields"]) != "Loaded_gaadimalik" &&
+          kad(issueData[i]["customFields"]).includes("Emp") &&
+          kad(issueData[i]["customFields"]) != "Load" &&
           vec(issueData[i]["customFields"]) ==
             vehicleData[j]["vehicleRegistrationNumber"] &&
           vehicleData[j]["customFields"] != null
         ) {
-          let elementData = {
+          let emptyData = {
             vecNo: vecNo(issueData[i]["customFields"]),
             len: len(vehicleData[j]["customFields"]),
             compLogo: vehicleImg(vehicleData[j]["vehicleMake"]),
@@ -142,12 +116,13 @@ export const fetchEmptyData = async () => {
             time: issueData[i]["createdAt"],
             temp: kad(issueData[i]["customFields"]),
           };
-          content.push(elementData);
+
+          empty.push(emptyData);
         }
       }
     }
-
-    // console.log(content.length);
+    content.push(loaded);
+    content.push(empty);
     return content;
   } catch (err) {
     console.log(err);
@@ -155,7 +130,6 @@ export const fetchEmptyData = async () => {
 };
 
 export function wp(a) {
-  //   console.log(a[]);
   for (let i = 0; i < a.length; i++) {
     if (a[i]["fieldKey"] == "Work Place") {
       console.log(a[i]["fieldKey"]);
@@ -169,7 +143,6 @@ export function wp(a) {
 export function kad(a) {
   for (let i = 0; i < a.length; i++) {
     if (a[i]["fieldKey"] == "Vehicle Status Bot") {
-      //console.log("hellllp",_a[i]['fieldKey'])
       x = a[i]["value"];
       break;
     }
@@ -180,7 +153,6 @@ export function kad(a) {
 export function kbd(a) {
   for (let i = 0; i < a.length; i++) {
     if (a[i]["fieldKey"] == "Problem Is") {
-      //console.log("hellllp",_a[i]['fieldKey'])
       x = a[i]["indexedValue"][0].split("_")[1].split("/")[0];
       break;
     }
@@ -193,7 +165,6 @@ export function vecNo(a) {
   for (let i = 0; i < a.length; i++) {
     if (a[i]["fieldKey"] == "Vehicle Number") {
       x = a[i]["value"];
-      // return x.replace(/[^0-9]/g, "").substring(2);
       return x;
     } else {
       x = a[i]["value"];
@@ -205,7 +176,6 @@ export function vecNo(a) {
 export function vec(a) {
   for (let i = 0; i < a.length; i++) {
     if (a[i]["fieldKey"] == "Vehicle Number") {
-      //console.log("hellllp",_a[i]['fieldKey'])
       x = a[i]["indexedValue"][0].split("_")[1];
 
       break;
@@ -289,7 +259,6 @@ export function vehicleImg(a) {
 export function makeVehicle(a) {
   for (let i = 0; i < a.length; i++) {
     if (a[i]["fieldKey"] == "MakeDate") {
-      //console.log("hellllp",_a[i]['fieldKey'])
       x = a[i]["indexedValue"][0].split("_")[1];
       break;
     }
@@ -302,7 +271,6 @@ export function makeVehicle(a) {
 export function AMCCover(a) {
   for (let i = 0; i < a.length; i++) {
     if (a[i]["fieldKey"] == "AMC") {
-      //console.log("hellllp",_a[i]['fieldKey'])
       x = a[i]["indexedValue"][0].split("_")[1];
       break;
     } else {
@@ -371,8 +339,6 @@ export function getTime(a) {
 export function workP(a) {
   for (let i = 0; i < _a.length; i++) {
     if (a[i]["fieldKey"] == "Work Place") {
-      //console.log("hellllp",_a[i]['fieldKey'])
-      // this.x=_a[i]['indexedValue'][0].split("_")[1];
       z = a[i]["value"];
       break;
     }
