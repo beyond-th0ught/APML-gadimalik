@@ -121,6 +121,8 @@ export const fetchData = async () => {
         }
       }
     }
+
+    var a = setInterval(() => {}, 1000);
     content.push(loaded);
     content.push(empty);
     return content;
@@ -315,7 +317,7 @@ export function gad(a) {
   return x;
 }
 
-export function getTime(a) {
+export function getT(a) {
   var countFrom = new Date(a).getTime();
   let now = new Date();
   let b = new Date(countFrom);
