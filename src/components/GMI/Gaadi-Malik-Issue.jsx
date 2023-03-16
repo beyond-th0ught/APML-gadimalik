@@ -50,8 +50,8 @@ export default function Gaadi_Malik_Issue() {
           <div>
             <div style={{ fontSize: "35px" }}>
               <input
-                // value={count.rl}
                 type="text"
+                value={loadedContent.length}
                 disabled
                 style={{
                   backgroundColor: "black",
@@ -78,7 +78,6 @@ export default function Gaadi_Malik_Issue() {
                     (e.len === type && e.prob === "RTO") ||
                     (type === "all" && e.prob === "RTO")
                   ) {
-                    count.rl += 1;
                     return (
                       <tr>
                         <td>
