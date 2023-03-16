@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./ntiStyles.scss";
-
 
 // IMPORT FUNCTIONS
 import { fetchData } from "./ntiFunction";
@@ -21,7 +19,6 @@ export default function New_Tyre_Issue() {
     <>
       <div className="Section1">
         <div>
-          {/* <p>{lC}</p> */}
           <div>
             <p className="caseno" type="text" disabled></p>
             New Tyre issue(Loaded)
@@ -55,10 +52,30 @@ export default function New_Tyre_Issue() {
                         />
                         |{e.details.year}|{e.details.cover}|{e.details.type}|
                       </span>
-                      <span className={e.rDetails.speed > 5 ?'working-rotated-thing' : 'speed-o'}>{e.run}</span>
-                       |<span className={e.rDetails.speed > 5 ? 'speed' : 'speed-o'}>{e.rDetails.speed}</span> |
-                       {" "}
-                      <span className={e.rDetails.halt < 1 ? 'halt-hrs1' : 'halt-hrs'}>{e.rDetails.halt}</span> |{" "}
+                      <span
+                        className={
+                          e.rDetails.speed > 5
+                            ? "working-rotated-thing"
+                            : "speed-o"
+                        }
+                      >
+                        {e.run}
+                      </span>
+                      |
+                      <span
+                        className={e.rDetails.speed > 5 ? "speed" : "speed-o"}
+                      >
+                        {e.rDetails.speed}
+                      </span>{" "}
+                      |{" "}
+                      <span
+                        className={
+                          e.rDetails.halt < 1 ? "halt-hrs1" : "halt-hrs"
+                        }
+                      >
+                        {e.rDetails.halt}
+                      </span>{" "}
+                      |{" "}
                       <span>
                         <img
                           // style="background-color: black"
