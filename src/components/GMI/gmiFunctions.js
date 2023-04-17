@@ -227,14 +227,26 @@ export function len(a) {
   }
 
   z = xz;
+  console.log(z);
   if (z.includes("MXL")) {
-    z = "🚛";
+    z = "LINE_MXL";
   } else if (z.includes("SXL") || z == "SXL") {
-    z = "🚚";
+    z = "LINE_SXL";
   } else if (z.includes("TRAILER") || z == "TRAILER") {
-    z = "🚍";
+    z = "LINE_TRAILER";
+  } else if (z.includes("AS") || z == "AS") {
+    z = "LINE_AS";
+  } else if (z.includes("DOUBLEDECK") || z == "DOUBLEDECK") {
+    z = "LINE_DOUBLEDECK";
+  } else if (
+    z.includes("SP") ||
+    (z == "SP" && (!z.includes("DOUBLEDECK") || z != "DOUBLEDECK"))
+  ) {
+    z = "LINE_SP";
+  } else if (z.includes("CAR") || z == "CAR") {
+    z = "LINE_CAR";
   } else {
-    z = "🚜";
+    z = "OTHER";
   }
   return z;
 }

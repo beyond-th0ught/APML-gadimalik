@@ -36,13 +36,66 @@ export default function Gaadi_Malik_Issue() {
     })();
   }, []);
 
+  let temp;
+
+  const getCount = () => {
+    // get all the elements with id
+    let rl = document.querySelectorAll("#rl");
+    let re = document.querySelectorAll("#re");
+    let al = document.querySelectorAll("#al");
+    let ae = document.querySelectorAll("#ae");
+    let ul = document.querySelectorAll("#ul");
+    let ue = document.querySelectorAll("#ue");
+    let ll = document.querySelectorAll("#ll");
+    let le = document.querySelectorAll("#le");
+    let rol = document.querySelectorAll("#rol");
+    let roe = document.querySelectorAll("#roe");
+    let kl = document.querySelectorAll("#kl");
+    let ke = document.querySelectorAll("#ke");
+    let cl = document.querySelectorAll("#cl");
+    let ce = document.querySelectorAll("#ce");
+    let ol = document.querySelectorAll("#ol");
+    let oe = document.querySelectorAll("#oe");
+
+    setTimeout(() => {
+      setCount({
+        ...count,
+        rl: rl.length,
+        re: re.length,
+        al: al.length,
+        ae: ae.length,
+        ul: ul.length,
+        ue: ue.length,
+        ll: ll.length,
+        le: le.length,
+        rol: rol.length,
+        roe: roe.length,
+        kl: kl.length,
+        ke: ke.length,
+        cl: cl.length,
+        ce: ce.length,
+        ol: ol.length,
+        oe: oe.length,
+      });
+    }, 1000);
+  };
+
+  getCount();
+
   return (
     <>
       <div>
         <button onClick={() => setType("all")}>ALL</button>
-        <button onClick={() => setType("🚚")}>LINE_SXL</button>
-        <button onClick={() => setType("🚛")}>LINE_MXL</button>
-        <button onClick={() => setType("🚍")}>LINE_TRAILER</button>
+        <button onClick={() => setType("LINE_MXL")}>LINE_MXL</button>
+        <button onClick={() => setType("LINE_SXL")}>LINE_SXL</button>
+        <button onClick={() => setType("LINE_TRAILER")}>LINE_TRAILER</button>
+        <button onClick={() => setType("LINE_AS")}>LINE_AS</button>
+        <button onClick={() => setType("LINE_DOUBLEDECK")}>
+          LINE_SP_DOUBLEDECK
+        </button>
+        <button onClick={() => setType("LINE_SP")}>LINE_SP</button>
+        <button onClick={() => setType("LINE_CAR")}>LINE_CAR</button>
+        <button onClick={() => setType("OTHER")}>OTHER</button>
       </div>
       <div className="Section">
         {/* RTO */}
@@ -51,7 +104,7 @@ export default function Gaadi_Malik_Issue() {
             <div style={{ fontSize: "35px" }}>
               <input
                 type="text"
-                value={loadedContent.length}
+                value={count.rl}
                 disabled
                 style={{
                   backgroundColor: "black",
@@ -79,14 +132,14 @@ export default function Gaadi_Malik_Issue() {
                     (type === "all" && e.prob === "RTO")
                   ) {
                     return (
-                      <tr>
+                      <tr id="rl">
                         <td>
-                          {e.vecNo || "NA"}
-                          &nbsp;&nbsp;
+                          {e.vecNo || "NA"}{" "}
                           <span>
-                            {e.len}
-                            <img src={e.compLogo} width="40px" height="25px" />|
-                            {e.details.year}|{e.details.cover}|{e.details.type}|
+                            {e.len}{" "}
+                            <img src={e.compLogo} width="40px" height="25px" />{" "}
+                            | {e.details.year} | {e.details.cover} |{" "}
+                            {e.details.type} |{" "}
                           </span>
                           <span
                             className={
@@ -139,7 +192,7 @@ export default function Gaadi_Malik_Issue() {
           <div>
             <div style={{ fontSize: "35px" }}>
               <input
-                value={emptyContent.length}
+                value={count.re}
                 type="text"
                 disabled
                 style={{
@@ -169,13 +222,14 @@ export default function Gaadi_Malik_Issue() {
                     (type === "all" && e.prob === "RTO")
                   ) {
                     return (
-                      <tr>
-                        <td>{e.vecNo || "NA"}</td>
+                      <tr id="re">
                         <td>
+                          {e.vecNo || "NA"}{" "}
                           <span>
-                            {e.len}
-                            <img src={e.compLogo} width="40px" height="25px" />|
-                            {e.details.year}|{e.details.cover}|{e.details.type}|
+                            {e.len}{" "}
+                            <img src={e.compLogo} width="40px" height="25px" />{" "}
+                            | {e.details.year} | {e.details.cover} |{" "}
+                            {e.details.type} |{" "}
                           </span>
                           <span
                             className={
@@ -199,7 +253,7 @@ export default function Gaadi_Malik_Issue() {
                           |{" "}
                           <span
                             className={
-                              e.rDetails.speed <= 1
+                              e.rDetails.halt <= 1
                                 ? "working-rotated-thing"
                                 : "speed-o"
                             }
@@ -213,7 +267,9 @@ export default function Gaadi_Malik_Issue() {
                         </td>
                         <td>{e.gm}</td>
                         <td>{e.prob}</td>
-                        <textarea value={e.desc}></textarea>
+                        <td>
+                          <textarea value={e.desc}></textarea>
+                        </td>
                         <td>{e.time}</td>
                       </tr>
                     );
@@ -229,7 +285,7 @@ export default function Gaadi_Malik_Issue() {
           <div>
             <div style={{ fontSize: "35px" }}>
               <input
-                value={loadedContent.length}
+                value={count.al}
                 type="text"
                 disabled
                 style={{
@@ -258,14 +314,14 @@ export default function Gaadi_Malik_Issue() {
                     (type === "all" && e.prob === "एडवांस ")
                   ) {
                     return (
-                      <tr>
+                      <tr id="al">
                         <td>
-                          {e.vecNo || "NA"}
-                          {/* <td> */}
+                          {e.vecNo || "NA"}{" "}
                           <span>
-                            {e.len}
-                            <img src={e.compLogo} width="40px" height="25px" />|
-                            {e.details.year}|{e.details.cover}|{e.details.type}|
+                            {e.len}{" "}
+                            <img src={e.compLogo} width="40px" height="25px" />{" "}
+                            | {e.details.year} | {e.details.cover} |{" "}
+                            {e.details.type} |{" "}
                           </span>
                           <span
                             className={
@@ -318,7 +374,7 @@ export default function Gaadi_Malik_Issue() {
           <div>
             <div style={{ fontSize: "35px" }}>
               <input
-                value={emptyContent.length}
+                value={count.ae}
                 type="text"
                 disabled
                 style={{
@@ -348,7 +404,7 @@ export default function Gaadi_Malik_Issue() {
                     (type === "all" && e.prob === "एडवांस ")
                   ) {
                     return (
-                      <tr>
+                      <tr id="ae">
                         <td>{e.vecNo || "NA"}</td>
                         <td>
                           <span>
@@ -408,7 +464,7 @@ export default function Gaadi_Malik_Issue() {
           <div>
             <div style={{ fontSize: "35px" }}>
               <input
-                value={loadedContent.length}
+                value={count.ul}
                 type="text"
                 disabled
                 style={{
@@ -437,7 +493,7 @@ export default function Gaadi_Malik_Issue() {
                     (type === "all" && e.prob === "अनलोडिंग समस्या ")
                   ) {
                     return (
-                      <tr>
+                      <tr id="ul">
                         <td>
                           {e.vecNo || "NA"}
                           {/* <td> */}
@@ -497,7 +553,7 @@ export default function Gaadi_Malik_Issue() {
           <div>
             <div style={{ fontSize: "35px" }}>
               <input
-                value={emptyContent.length}
+                value={count.ue}
                 type="text"
                 disabled
                 style={{
@@ -527,7 +583,7 @@ export default function Gaadi_Malik_Issue() {
                     (type === "all" && e.prob === "अनलोडिंग समस्या ")
                   ) {
                     return (
-                      <tr>
+                      <tr id="ue">
                         <td>{e.vecNo || "NA"}</td>
                         <td>
                           <span>
@@ -587,7 +643,7 @@ export default function Gaadi_Malik_Issue() {
           <div>
             <div style={{ fontSize: "35px" }}>
               <input
-                value={loadedContent.length}
+                value={count.ll}
                 type="text"
                 disabled
                 style={{
@@ -616,7 +672,7 @@ export default function Gaadi_Malik_Issue() {
                     (type === "all" && e.prob === "लोडिंग समस्या")
                   ) {
                     return (
-                      <tr>
+                      <tr id="ll">
                         <td>
                           {e.vecNo || "NA"}
                           {/* <td> */}
@@ -676,7 +732,7 @@ export default function Gaadi_Malik_Issue() {
           <div>
             <div style={{ fontSize: "35px" }}>
               <input
-                value={emptyContent.length}
+                value={count.le}
                 type="text"
                 disabled
                 style={{
@@ -706,7 +762,7 @@ export default function Gaadi_Malik_Issue() {
                     (type === "all" && e.prob === "लोडिंग समस्या")
                   ) {
                     return (
-                      <tr>
+                      <tr id="le">
                         <td>{e.vecNo || "NA"}</td>
                         <td>
                           <span>
@@ -766,7 +822,7 @@ export default function Gaadi_Malik_Issue() {
           <div>
             <div style={{ fontSize: "35px" }}>
               <input
-                value={loadedContent.length}
+                value={count.rol}
                 type="text"
                 disabled
                 style={{
@@ -795,7 +851,7 @@ export default function Gaadi_Malik_Issue() {
                     (type === "all" && e.prob === "रूट समस्या ")
                   ) {
                     return (
-                      <tr>
+                      <tr id="rol">
                         <td>
                           {e.vecNo || "NA"}
                           {/* <td> */}
@@ -855,7 +911,7 @@ export default function Gaadi_Malik_Issue() {
           <div>
             <div style={{ fontSize: "35px" }}>
               <input
-                value={emptyContent.length}
+                value={count.roe}
                 type="text"
                 disabled
                 style={{
@@ -885,7 +941,7 @@ export default function Gaadi_Malik_Issue() {
                     (type === "all" && e.prob === "रूट समस्या ")
                   ) {
                     return (
-                      <tr>
+                      <tr id="roe">
                         <td>{e.vecNo || "NA"}</td>
                         <td>
                           <span>
@@ -945,7 +1001,7 @@ export default function Gaadi_Malik_Issue() {
           <div>
             <div style={{ fontSize: "35px" }}>
               <input
-                value={loadedContent.length}
+                value={count.kl}
                 type="text"
                 disabled
                 style={{
@@ -974,7 +1030,7 @@ export default function Gaadi_Malik_Issue() {
                     (type === "all" && e.prob === "खाली ")
                   ) {
                     return (
-                      <tr>
+                      <tr id="kl">
                         <td>
                           {e.vecNo || "NA"}
                           {/* <td> */}
@@ -1034,7 +1090,7 @@ export default function Gaadi_Malik_Issue() {
           <div>
             <div style={{ fontSize: "35px" }}>
               <input
-                value={emptyContent.length}
+                value={count.ke}
                 type="text"
                 disabled
                 style={{
@@ -1064,7 +1120,7 @@ export default function Gaadi_Malik_Issue() {
                     (type === "all" && e.prob === "खाली ")
                   ) {
                     return (
-                      <tr>
+                      <tr id="ke">
                         <td>{e.vecNo || "NA"}</td>
                         <td>
                           <span>
@@ -1124,7 +1180,7 @@ export default function Gaadi_Malik_Issue() {
           <div>
             <div style={{ fontSize: "35px" }}>
               <input
-                value={loadedContent.length}
+                value={count.cl}
                 type="text"
                 disabled
                 style={{
@@ -1153,7 +1209,7 @@ export default function Gaadi_Malik_Issue() {
                     (type === "all" && e.prob === "बिल्टी,चलन")
                   ) {
                     return (
-                      <tr>
+                      <tr id="cl">
                         <td>
                           {e.vecNo || "NA"}
                           {/* <td> */}
@@ -1213,7 +1269,7 @@ export default function Gaadi_Malik_Issue() {
           <div>
             <div style={{ fontSize: "35px" }}>
               <input
-                value={emptyContent.length}
+                value={count.ce}
                 type="text"
                 disabled
                 style={{
@@ -1243,7 +1299,7 @@ export default function Gaadi_Malik_Issue() {
                     (type === "all" && e.prob === "बिल्टी,चलन")
                   ) {
                     return (
-                      <tr>
+                      <tr id="ce">
                         <td>{e.vecNo || "NA"}</td>
                         <td>
                           <span>
@@ -1303,7 +1359,7 @@ export default function Gaadi_Malik_Issue() {
           <div>
             <div style={{ fontSize: "35px" }}>
               <input
-                value={loadedContent.length}
+                value={count.ol}
                 type="text"
                 disabled
                 style={{
@@ -1332,7 +1388,7 @@ export default function Gaadi_Malik_Issue() {
                     (type === "all" && e.prob === "Other issue")
                   ) {
                     return (
-                      <tr>
+                      <tr id="ol">
                         <td>
                           {e.vecNo || "NA"}
                           {/* <td> */}
@@ -1392,7 +1448,7 @@ export default function Gaadi_Malik_Issue() {
           <div>
             <div style={{ fontSize: "35px" }}>
               <input
-                value={emptyContent.length}
+                value={count.oe}
                 type="text"
                 disabled
                 style={{
@@ -1422,7 +1478,7 @@ export default function Gaadi_Malik_Issue() {
                     (type === "all" && e.prob === "Other issue")
                   ) {
                     return (
-                      <tr>
+                      <tr id="oe">
                         <td>{e.vecNo || "NA"}</td>
                         <td>
                           <span>
