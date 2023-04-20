@@ -1,285 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 // IMPORT FUNCTIONS
-import { fetchData } from "./gmiFunctions";
+import { TopNavContext } from "../../Context/TopNavContextProvider";
+import { LoadContext } from '../../Context/LoadContextProvider'
+import Topnav from "../BaseComponents/Topnav";
+import RtoPanel from "../RTO/RtoLoad";
+import RtoEmpty from "../RTO/RtoEmpty";
+import { CountContext } from "../../Context/CountContextProvider";
 
 export default function Gaadi_Malik_Issue() {
-  const [loadedContent, setLoadedContent] = useState([]);
-  const [emptyContent, setEmptyContent] = useState([]);
-
-  let [type, setType] = useState("all");
-
-  let [count, setCount] = useState({
-    rl: 0,
-    re: 0,
-    al: 0,
-    ae: 0,
-    ul: 0,
-    ue: 0,
-    ll: 0,
-    le: 0,
-    rol: 0,
-    roe: 0,
-    kl: 0,
-    ke: 0,
-    cl: 0,
-    ce: 0,
-    ol: 0,
-    oe: 0,
-  });
-
-  useEffect(() => {
-    (async () => {
-      const data = await fetchData();
-      setLoadedContent(data[0]);
-      setEmptyContent(data[1]);
-    })();
-  }, []);
+  const { type } =  useContext(TopNavContext)
+  const { loadedContent, emptyContent } = useContext(LoadContext) 
+  
+  const { count } = useContext(CountContext);
 
   let temp;
 
-  const getCount = () => {
-    // get all the elements with id
-    let rl = document.querySelectorAll("#rl");
-    let re = document.querySelectorAll("#re");
-    let al = document.querySelectorAll("#al");
-    let ae = document.querySelectorAll("#ae");
-    let ul = document.querySelectorAll("#ul");
-    let ue = document.querySelectorAll("#ue");
-    let ll = document.querySelectorAll("#ll");
-    let le = document.querySelectorAll("#le");
-    let rol = document.querySelectorAll("#rol");
-    let roe = document.querySelectorAll("#roe");
-    let kl = document.querySelectorAll("#kl");
-    let ke = document.querySelectorAll("#ke");
-    let cl = document.querySelectorAll("#cl");
-    let ce = document.querySelectorAll("#ce");
-    let ol = document.querySelectorAll("#ol");
-    let oe = document.querySelectorAll("#oe");
-
-    setTimeout(() => {
-      setCount({
-        ...count,
-        rl: rl.length,
-        re: re.length,
-        al: al.length,
-        ae: ae.length,
-        ul: ul.length,
-        ue: ue.length,
-        ll: ll.length,
-        le: le.length,
-        rol: rol.length,
-        roe: roe.length,
-        kl: kl.length,
-        ke: ke.length,
-        cl: cl.length,
-        ce: ce.length,
-        ol: ol.length,
-        oe: oe.length,
-      });
-    }, 1000);
-  };
-
-  getCount();
-
   return (
     <>
-      <div>
-        <button onClick={() => setType("all")}>ALL</button>
-        <button onClick={() => setType("LINE_MXL")}>LINE_MXL</button>
-        <button onClick={() => setType("LINE_SXL")}>LINE_SXL</button>
-        <button onClick={() => setType("LINE_TRAILER")}>LINE_TRAILER</button>
-        <button onClick={() => setType("LINE_AS")}>LINE_AS</button>
-        <button onClick={() => setType("LINE_DOUBLEDECK")}>
-          LINE_SP_DOUBLEDECK
-        </button>
-        <button onClick={() => setType("LINE_SP")}>LINE_SP</button>
-        <button onClick={() => setType("LINE_CAR")}>LINE_CAR</button>
-        <button onClick={() => setType("OTHER")}>OTHER</button>
-      </div>
+      <Topnav />
       <div className="Section">
+        
         {/* RTO */}
         <div className="SubSection">
-          <div>
-            <div style={{ fontSize: "35px" }}>
-              <input
-                type="text"
-                value={count.rl}
-                disabled
-                style={{
-                  backgroundColor: "black",
-                  color: "red",
-                  fontSize: "35px",
-                }}
-              />
-              RTO Issue (Loaded)
-            </div>
-
-            <table>
-              <thead>
-                <tr>
-                  <th>V No.</th>
-                  <th>GM</th>
-                  <th>Problem</th>
-                  <th>Description</th>
-                  <th>Time Up </th>
-                </tr>
-              </thead>
-              <tbody>
-                {loadedContent.map((e) => {
-                  if (
-                    (e.len === type && e.prob === "RTO") ||
-                    (type === "all" && e.prob === "RTO")
-                  ) {
-                    return (
-                      <tr id="rl">
-                        <td>
-                          {e.vecNo || "NA"}{" "}
-                          <span>
-                            {e.len}{" "}
-                            <img src={e.compLogo} width="40px" height="25px" />{" "}
-                            | {e.details.year} | {e.details.cover} |{" "}
-                            {e.details.type} |{" "}
-                          </span>
-                          <span
-                            className={
-                              e.rDetails.speed > 5
-                                ? "working-rotated-thing"
-                                : "speed-o"
-                            }
-                          >
-                            {e.run}
-                          </span>{" "}
-                          |{" "}
-                          <span
-                            className={
-                              e.rDetails.speed > 5
-                                ? "working-rotated-thing"
-                                : "speed-o"
-                            }
-                          >
-                            {e.rDetails.speed}
-                          </span>{" "}
-                          |{" "}
-                          <span
-                            className={
-                              e.rDetails.halt <= 1
-                                ? "working-rotated-thing"
-                                : "speed-o"
-                            }
-                          >
-                            {e.rDetails.halt}
-                          </span>{" "}
-                          |{" "}
-                          <span>
-                            <img src={e.shipLogo} width="55px" height="25px" />
-                          </span>
-                        </td>
-                        <td>{e.gm}</td>
-                        <td>{e.prob}</td>
-                        <td>
-                          <textarea value={e.desc}></textarea>
-                        </td>
-                        <td>{e.time}</td>
-                      </tr>
-                    );
-                  }
-                })}
-              </tbody>
-            </table>
-          </div>
-
-          <div>
-            <div style={{ fontSize: "35px" }}>
-              <input
-                value={count.re}
-                type="text"
-                disabled
-                style={{
-                  backgroundColor: "black",
-                  color: "red",
-                  fontSize: "35px",
-                }}
-              />
-              RTO Issue (Empty)
-            </div>
-
-            <table>
-              <thead>
-                <tr>
-                  <th>V No.</th>
-                  <th></th>
-                  <th>GM</th>
-                  <th>Problem</th>
-                  <th>Description</th>
-                  <th>Time Up </th>
-                </tr>
-              </thead>
-              <tbody>
-                {emptyContent.map((e) => {
-                  if (
-                    (e.len === type && e.prob === "RTO") ||
-                    (type === "all" && e.prob === "RTO")
-                  ) {
-                    return (
-                      <tr id="re">
-                        <td>
-                          {e.vecNo || "NA"}{" "}
-                          <span>
-                            {e.len}{" "}
-                            <img src={e.compLogo} width="40px" height="25px" />{" "}
-                            | {e.details.year} | {e.details.cover} |{" "}
-                            {e.details.type} |{" "}
-                          </span>
-                          <span
-                            className={
-                              e.rDetails.speed > 5
-                                ? "working-rotated-thing"
-                                : "speed-o"
-                            }
-                          >
-                            {e.run}
-                          </span>{" "}
-                          |{" "}
-                          <span
-                            className={
-                              e.rDetails.speed > 5
-                                ? "working-rotated-thing"
-                                : "speed-o"
-                            }
-                          >
-                            {e.rDetails.speed}
-                          </span>{" "}
-                          |{" "}
-                          <span
-                            className={
-                              e.rDetails.halt <= 1
-                                ? "working-rotated-thing"
-                                : "speed-o"
-                            }
-                          >
-                            {e.rDetails.halt}
-                          </span>{" "}
-                          |{" "}
-                          <span>
-                            <img src={e.shipLogo} width="55px" height="25px" />
-                          </span>
-                        </td>
-                        <td>{e.gm}</td>
-                        <td>{e.prob}</td>
-                        <td>
-                          <textarea value={e.desc}></textarea>
-                        </td>
-                        <td>{e.time}</td>
-                      </tr>
-                    );
-                  }
-                })}
-              </tbody>
-            </table>
-          </div>
+          <RtoPanel />
+          <RtoEmpty />
         </div>
-
+        
         {/* एडवांस */}
         <div className="SubSection">
           <div>
