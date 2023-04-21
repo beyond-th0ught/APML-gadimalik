@@ -4,8 +4,8 @@ import { TopNavContext } from '../../Context/TopNavContextProvider'
 import { CountContext } from '../../Context/CountContextProvider'
 import Table from '../BaseComponents/Table'
 
-function RtoEmpty() {
-    const {emptyContent} = useContext(LoadContext)
+function AdvanceEmpty() {
+  const {emptyContent} = useContext(LoadContext)
   const {type} = useContext(TopNavContext)
   const { count } = useContext(CountContext) 
   return (
@@ -21,12 +21,12 @@ function RtoEmpty() {
                   fontSize: "35px",
                 }}
               />
-              RTO Issue (Empty)
+              एडवांस Issue (Empty)
             </div>
 
-            <Table data={emptyContent} type={type} prob={"RTO"} />
+            <Table data={emptyContent} type={type} prob={"एडवांस "} />
           </div>
   )
 }
 
-export default RtoEmpty
+export default AdvanceEmpty
