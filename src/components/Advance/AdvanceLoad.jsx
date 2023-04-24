@@ -13,7 +13,7 @@ function AdvanceLoad() {
     <div style={{ fontSize: "35px" }}>
       <input
         type="text"
-        value={count.rl}
+        value={count.al}
         disabled
         style={{
           backgroundColor: "black",
@@ -24,7 +24,7 @@ function AdvanceLoad() {
       एडवांस Issue (Loaded)
     </div>
 
-    <Table data={loadedContent} type={type} prob={"एडवांस "} />
+    <Table data={loadedContent} type={type} prob={"एडवांस "} id={"al"} />
   </div>
   )
 }

@@ -24,7 +24,7 @@ function RtoEmpty() {
               RTO Issue (Empty)
             </div>
 
-            <Table data={emptyContent} type={type} prob={"RTO"} />
+            <Table data={emptyContent} type={type} prob={"RTO"} id={"re"} />
           </div>
   )
 }

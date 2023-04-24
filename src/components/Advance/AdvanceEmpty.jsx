@@ -12,7 +12,7 @@ function AdvanceEmpty() {
     <div>
             <div style={{ fontSize: "35px" }}>
               <input
-                value={count.re}
+                value={count.ae}
                 type="text"
                 disabled
                 style={{
@@ -24,7 +24,7 @@ function AdvanceEmpty() {
               एडवांस Issue (Empty)
             </div>
 
-            <Table data={emptyContent} type={type} prob={"एडवांस "} />
+            <Table data={emptyContent} type={type} prob={"एडवांस "} id={"ae"} />
           </div>
   )
 }

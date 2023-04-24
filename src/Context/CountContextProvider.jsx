@@ -26,6 +26,7 @@ function CountContextProvider({children}) {
 
       useEffect(()=> {
         // get all the elements with id
+        const Interval = setInterval(() => {
         let rl = document.querySelectorAll("#rl");
         let re = document.querySelectorAll("#re");
         let al = document.querySelectorAll("#al");
@@ -43,7 +44,7 @@ function CountContextProvider({children}) {
         let ol = document.querySelectorAll("#ol");
         let oe = document.querySelectorAll("#oe");
     
-        const timeOut = setTimeout(() => {
+        
           setCount({
             ...count,
             rl: rl.length,
@@ -66,7 +67,7 @@ function CountContextProvider({children}) {
         }, 5000);
 
         return ()=> {
-            clearTimeout(timeOut)
+            clearInterval(Interval)
         }
     }, [])
     

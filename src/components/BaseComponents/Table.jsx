@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Table({data, type, prob}) {
+function Table({data, type, prob, id}) {
   return (
     <table>
       <thead>
@@ -19,7 +19,7 @@ function Table({data, type, prob}) {
             (type === "all" && e.prob === prob)
           ) {
             return (
-              <tr id="rl">
+              <tr id={`${id}`}>
                 <td>
                   {e.vecNo || "NA"}{" "}
                   <span>
