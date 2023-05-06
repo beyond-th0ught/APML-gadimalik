@@ -134,7 +134,6 @@ export const fetchData = async () => {
 export function wp(a) {
   for (let i = 0; i < a.length; i++) {
     if (a[i]["fieldKey"] == "Work Place") {
-      console.log(a[i]["fieldKey"]);
       x = a[i]["indexedValue"][0].split("_")[1];
       break;
     }
@@ -227,7 +226,6 @@ export function len(a) {
   }
 
   z = xz;
-  console.log(z);
   if (z.includes("MXL")) {
     z = "LINE_MXL";
   } else if (z.includes("SXL") || z == "SXL") {

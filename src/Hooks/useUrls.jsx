@@ -35,10 +35,6 @@ function useUrls() {
       const sheetRes = await axios.get(logoUrl);
       sheetData = sheetRes.data.data;
 
-      console.log(issueRes)
-      console.log(vehRes)
-      console.log(sheetRes)
-
       vehicleData = vehicleData.map((vehicle) => ({
         ...vehicleData.find(
           (element) =>

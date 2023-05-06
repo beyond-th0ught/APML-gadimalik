@@ -3,28 +3,27 @@ import { LoadContext } from '../../Context/LoadContextProvider';
 import { TopNavContext } from '../../Context/TopNavContextProvider';
 import { CountContext } from '../../Context/CountContextProvider';
 import Table from '../BaseComponents/Table';
+import BlurTable from '../BaseComponents/BlurTable';
 
 function AdvanceLoad() {
-  const {loadedContent} = useContext(LoadContext)
+  const {loadedContent, count} = useContext(LoadContext)
   const {type} = useContext(TopNavContext)
-  const { count } = useContext(CountContext) 
+  // const { count } = useContext(CountContext) 
   return (
-    <div>
-    <div style={{ fontSize: "35px" }}>
+    <div className='py-3 flex-1'>
+    <div className='text-[35px] m-4 flex gap-3'>
       <input
         type="text"
         value={count.al}
         disabled
-        style={{
-          backgroundColor: "black",
-          color: "red",
-          fontSize: "35px",
-        }}
+        className='bg-white text-red-600 text-[35px] rounded-full w-[6.5%] text-center'
       />
-      एडवांस Issue (Loaded)
+      <h1>एडवांस Issue (Loaded)</h1>
     </div>
-
-    <Table data={loadedContent} type={type} prob={"एडवांस "} id={"al"} />
+    
+    {
+              count.al > 0 ? (<Table data={loadedContent} type={type} prob={"एडवांस "} id={"al"} />) : (<BlurTable />) 
+    }
   </div>
   )
 }

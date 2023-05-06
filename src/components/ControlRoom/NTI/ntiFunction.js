@@ -58,7 +58,6 @@ export const fetchData = async () => {
             vehicleData[j]["vehicleRegistrationNumber"] &&
           vehicleData[j]["customFields"] != null
         ) {
-          console.log("hi");
           let elementData = {
             vecNo: vecNo(issueData[i]["customFields"]),
             len: len(vehicleData[j]["customFields"]),
@@ -85,7 +84,6 @@ export const fetchData = async () => {
       }
     }
 
-    // console.log(content.length);
     return content;
   } catch (err) {
     console.log(err);
@@ -95,7 +93,6 @@ export const fetchData = async () => {
 export function wp(a) {
   for (let i = 0; i < a.length; i++) {
     if (a[i]["fieldKey"] == "Work Place") {
-      console.log(a[i]["fieldKey"]);
       x = a[i]["indexedValue"][0].split("_")[1];
       break;
     }

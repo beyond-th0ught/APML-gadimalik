@@ -84,7 +84,6 @@ export function kad(a) {
     }
   
     z = xz;
-    console.log(z);
     if (z.includes("MXL")) {
       z = "LINE_MXL";
     } else if (z.includes("SXL") || z == "SXL") {
