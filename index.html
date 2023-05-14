@@ -6,10 +6,63 @@
     <link href="/dist/output.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+
     <title>Vite + React</title>
+    <style>
+      
+
+      /* Define the scroll behavior */
+       body {
+          scroll-behavior: smooth;
+        }
+        
+        
+        @keyframes autoscroll {
+          0% {
+            transform: translateY(1%);
+          }
+          50% {
+            transform: translateY(-100%);
+          }
+          100% {
+            transform: translateY(1%);
+          }
+        }
+        
+       
+        body {
+          /* animation: autoscroll 210s linear infinite; */
+        }
+          </style>
+
   </head>
-  <body>
-    <div id="root"></div>
+  <body class="scroll-container">
+    <div id="root" class=""></div>
     <script type="module" src="/src/main.jsx"></script>
+    <!-- <script>
+      // Smooth autoscroll variables
+const scrollDuration = 210000; // Duration of the autoscroll animation in milliseconds
+const scrollAmount = 1; // Amount to scroll vertically per interval
+
+// Calculate the distance to scroll per interval
+const distancePerInterval = Math.floor((scrollAmount / scrollDuration) * 10);
+
+// Function to perform the smooth autoscroll
+function smoothAutoscroll() {
+  let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  let newPosition = scrollTop + distancePerInterval;
+  window.scrollTo(0, newPosition);
+
+  if (newPosition >= document.documentElement.scrollHeight) {
+    clearInterval(scrollInterval);
+    setTimeout(smoothAutoscroll, scrollDuration); // Wait for scrollDuration milliseconds before restarting
+  }
+}
+
+// Start the smooth autoscroll animation
+const scrollInterval = setInterval(smoothAutoscroll, 10);
+
+    </script> -->
   </body>
+
 </html>

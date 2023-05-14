@@ -12,13 +12,13 @@ function RtoPanel() {
   // const { count } = useContext(CountContext) 
 
   return (
-    <div className='py-3 flex-1'>
-    <div className='text-[35px] my-4 flex gap-3'>
+    <div className={`py-3 w-[49%] ${count.rl == 0 && "hidden"}`}>
+    <div className='text-[9px] my-4 flex gap-3'>
       <input
         type="text"
         value={count.rl}
         disabled
-        className='bg-white text-red-600 text-[35px] rounded-full w-[6.5%] text-center'
+        className='bg-white text-red-600 text-[11px] rounded-full w-[3%] text-center'
         
       />
       <h1>RTO Issue (Loaded)</h1>

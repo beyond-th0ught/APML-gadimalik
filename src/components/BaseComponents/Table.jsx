@@ -3,16 +3,16 @@ import Arrow from '../../assets/arrow-right.svg'
 
 function Table({data, type, prob, id}) {
   return (
-    <div className='relative overflow-auto block p-1 border  border-gray-200 rounded-lg shadow w-full'>
+    <div className='relative block p-1 border  border-gray-200 rounded-lg shadow w-full'>
     
-    <table className='w-full text-sm text-left text-gray-500'>
-      <thead className='text-medium text-gray-50 uppercase bg-[#c20505]'>
-        <tr className='p-7'>
-          <th scope="col" class="px-6 py-3 rounded-l-lg">V No.</th>
-          <th scope="col" class="px-6 py-3">GM</th>
-          <th scope="col" class="px-6 py-3">Problem</th>
-          <th scope="col" class="px-6 py-3">Description</th>
-          <th scope="col" class="px-6 py-3 rounded-r-lg">Time Up </th>
+    <table className='w-full text-[9px] text-left text-gray-500'>
+      <thead className='text-[9px] text-gray-50 uppercase bg-[#c20505]'>
+        <tr>
+          <th scope="col" className="px-6 py-2 rounded-l-lg">V No.</th>
+          <th scope="col" className="px-6 py-2">GM</th>
+          <th scope="col" className="px-6 py-2">Problem</th>
+          <th scope="col" className="px-6 py-2">Description</th>
+          <th scope="col" className="px-6 py-2 rounded-r-lg">Time Up </th>
         </tr>
       </thead>
       <tbody>
@@ -22,8 +22,8 @@ function Table({data, type, prob, id}) {
             (type === "all" && e.prob === prob)
           ) {
             return (
-              <tr id={`${id}`} class="border-b dark:bg-gray-900 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 grid grid-cols-2 gap-2 gap-x-3 font-medium whitespace-nowrap dark:text-white">
+              <tr id={`${id}`} className="border-b dark:bg-gray-900 dark:border-gray-700">
+                <th scope="row" className="px-6 py-2 grid grid-cols-2 gap-2 gap-x-3 font-medium whitespace-nowrap dark:text-white">
                   {e.vecNo || "NA"}{" "}
                   <span className='text-[#c20505]'>
                     {e.len}
@@ -69,12 +69,12 @@ function Table({data, type, prob, id}) {
                     <img src={e.shipLogo} width="40px" height="25px" />
                   </span>
                 </th>
-                <td class="px-6 py-4 bg-slate-950">{e.gm}</td>
-                <td class="px-6 py-4">{e.prob}</td>
-                <td class="px-6 py-4 bg-slate-950">
-                  <textarea value={e.desc}  className='bg-slate-950'></textarea>
+                <td className="px-6 py-4 bg-slate-950">{e.gm}</td>
+                <td className="px-6 py-4">{e.prob}</td>
+                <td className="px-6 py-4 bg-slate-950">
+                  <textarea defaultValue={e.desc}  className='bg-slate-950'></textarea>
                 </td>
-                <td class="px-6 py-4">{e.time}</td>
+                <td className="px-6 py-4">{e.time}</td>
               </tr>
             );
           }

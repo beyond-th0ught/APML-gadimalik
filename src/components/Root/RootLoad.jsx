@@ -11,13 +11,13 @@ function RootLoad() {
   // const { count } = useContext(CountContext) 
 
   return (
-    <div className='py-3 flex-1'>
-    <div className='text-[35px] m-4 flex gap-3'>
+    <div className={`py-3 w-[49%] ${count.rol == 0 && "hidden"}`}>
+    <div className='text-[9px] m-4 flex gap-3'>
       <input
         type="text"
         value={count.rol}
         disabled
-        className='bg-white text-red-600 text-[35px] rounded-full w-[6.5%] text-center'
+        className='bg-white text-red-600 text-[11px] rounded-full w-[3%] text-center'
       />
       <h1>रूट समस्या Issue (Loaded)</h1>
     </div>

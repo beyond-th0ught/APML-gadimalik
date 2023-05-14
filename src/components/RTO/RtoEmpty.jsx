@@ -11,13 +11,13 @@ function RtoEmpty() {
   const {type} = useContext(TopNavContext)
   // const { count } = useContext(CountContext) 
   return (
-    <div className={`py-3 flex-1 ${count.re == 0 && "hidden"}`}>
-            <div className='text-[35px] m-4 flex gap-3'>
+    <div className={`py-3 w-[49%] ${count.re == 0 && "hidden"}`}>
+            <div className='text-[9px] m-4 flex gap-3'>
               <input
                 value={count.re}
                 type="text"
                 disabled
-                className='bg-white text-red-600 text-[35px] rounded-full w-[6.5%] text-center'
+                className='bg-white text-red-600 text-[11px] rounded-full w-[3%] text-center'
               />
               <h1>RTO Issue (Empty)</h1>
             </div>

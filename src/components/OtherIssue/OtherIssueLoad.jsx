@@ -10,13 +10,13 @@ function OtherIssueLoad() {
     const {type} = useContext(TopNavContext)
     // const { count } = useContext(CountContext) 
   return (
-    <div className='py-3 flex-1'>
-    <div className='text-[35px] m-4 flex gap-3'>
+    <div className={`py-3 w-[49%] ${count.ol == 0 && "hidden"}`}>
+    <div className='text-[9px] m-4 flex gap-3'>
       <input
         type="text"
         value={count.ol}
         disabled
-        className='bg-white text-red-600 text-[35px] rounded-full w-[6.5%] text-center'
+        className='bg-white text-red-600 text-[11px] rounded-full w-[3%] text-center'
       />
       <h1>Other issue Issue (Loaded)</h1>
     </div>

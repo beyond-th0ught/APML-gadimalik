@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-
+import React, { useContext, useEffect, useState, useRef } from "react";
+import { animateScroll as scroll } from 'react-scroll';
 // IMPORT FUNCTIONS
 import { TopNavContext } from "../../Context/TopNavContextProvider";
 import { LoadContext } from '../../Context/LoadContextProvider'
@@ -23,66 +23,61 @@ import OtherIssueEmty from "../OtherIssue/OtherIssueEmty";
 import RootEmpty from "../Root/RootEmpty";
 
 export default function Gaadi_Malik_Issue() {
-  const { type } =  useContext(TopNavContext)
-  const { loadedContent, emptyContent } = useContext(LoadContext) 
-  
-  const { count } = useContext(CountContext);
-
-  let temp;
+  const scrollContainerRef = useRef(null);
 
   return (
-    <>
+    <div>
       <Topnav />
-      <div className=" grid md:flex-none lg:grid-cols-1">
+      <div className="flex flex-wrap gap-3 justify-center">
         
         {/* RTO */}
-        <div className="lg:flex md:grid-cols-1 gap-3">
+        {/* <div className="lg:flex md:grid-cols-1 gap-3"> */}
           <RtoPanel />
           <RtoEmpty />
-        </div>
+        {/* </div> */}
         
         {/* एडवांस */}
-        <div className="lg:flex md:grid-cols-1 gap-3">
+        {/* <div className="lg:flex md:grid-cols-1 gap-3"> */}
           <AdvanceLoad />
           <AdvanceEmpty />
-        </div>
+        {/* </div> */}
 
         {/* अनलोडिंग समस्या	*/}
-        <div className="lg:flex md:grid-cols-1 gap-3">
+        {/* <div className="lg:flex md:grid-cols-1 gap-3"> */}
           <UnloadingLoad/>
           <UnloadingEmpty/>
-        </div>
+        {/* </div> */}
 
         {/* लोडिंग समस्या */}
-        <div className="lg:flex md:grid-cols-1 gap-3">
+        {/* <div className="lg:flex md:grid-cols-1 gap-3"> */}
           <LoadingLoad/>
           <LoadingEmty/>
-        </div>
+        {/* </div> */}
 
         {/* रूट समस्या */}
-        <div className="lg:flex md:grid-cols-1 gap-3">
+        {/* <div className="lg:flex md:grid-cols-1 gap-3"> */}
           <RootLoad/>
           <RootEmpty/>
-        </div>
+        {/* </div> */}
 
         {/* खाली */}
-        <div className="lg:flex md:grid-cols-1 gap-3">
+        {/* <div className="lg:flex md:grid-cols-1 gap-3"> */}
           <KhaliLoad/>
           <KhaliEmpty/>
-        </div>
+        {/* </div> */}
 
         {/* बिल्टी,चलन */}
-        <div className="lg:flex md:grid-cols-1 gap-3">
+        {/* <div className="lg:flex md:grid-cols-1 gap-3"> */}
           <ChalanLoad/>
           <ChalanEmpty/>
-        </div>
+        {/* </div> */}
 
         {/* Other issue */}
-        <div className="lg:flex md:grid-cols-1 gap-3">
+        {/* <div className="lg:flex md:grid-cols-1 gap-3"> */}
           <OtherIssueLoad/>
           <OtherIssueEmty/>
-        </div>
+        {/* </div> */}
       </div>
-    </>
+    </div>
   );
 }
